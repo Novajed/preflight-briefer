@@ -13,7 +13,7 @@ const AppHeader = ({ classes }) => (
   <AppBar position="static">
     <Toolbar>
       <Typography variant="h6" color="inherit">
-        PreFlight Briefer
+        PreFlight Briefer v1
       </Typography>
       <Button color="inherit" component={Link} to="/">
         Home
