@@ -33,15 +33,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>PREFLIGHT BRIEFER</h1>
-        <form>
-          <label>
-            Variable Input:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-        </form>
+        <h1>PreFlight Briefer</h1>
+        <p>We want to make it easy for pilots to create the documents they need to take to the skies.</p>
+        <p>Enter an aircode below and start creating your documents:</p>
+
+        <input className="code-bar" type="text" value={this.state.value} onChange={this.handleChange} />
+
         <br />
-        <button onClick={this.buttonWasClicked}>Generate PDF</button>
+        <button className="button" onClick={this.buttonWasClicked}>
+          Generate PDF
+        </button>
       </div>
     );
   }
