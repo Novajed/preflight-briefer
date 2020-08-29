@@ -1,11 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 
+html {
+  overflow-x: hidden;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+}
+
+::selection {
+  background: lightblue; /* WebKit/Blink Browsers */
+  opacity: 0.6;
+}
+
+::-moz-selection {
+  background: lightblue; /* Gecko Browsers */
+}
 body {
   margin: 0;
   padding: 16px;
-  font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-width: 90%;
+  overflow-x: hidden;
 }
 
 code {
