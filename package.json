@@ -6,11 +6,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "api2pdf": "^1.1.0",
+    "emotion": "^10.0.27",
     "firebase": "^7.19.1",
     "pdfshift": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-promise-tracker": "^2.1.0",
+    "react-scripts": "3.4.3",
+    "react-spinners": "^0.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

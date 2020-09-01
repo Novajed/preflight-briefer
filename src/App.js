@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import firebase from './util/firebase';
+import Results from './results';
+import { trackPromise } from 'react-promise-tracker';
 
-const pdfshift = require('pdfshift')(process.env.REACT_APP_PDF_KEY);
+const Api2Pdf = require('api2pdf');
+const a2pClient = new Api2Pdf(process.env.REACT_APP_PDF_API);
 
 class App extends Component {
   constructor(props) {
@@ -11,9 +13,8 @@ class App extends Component {
     this.state = {
       value: '',
       isValid: false,
-      errors: {
-        aircode: '',
-      },
+      result: '',
+      showResult: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,17 +29,18 @@ class App extends Component {
   buttonWasClicked() {
     // Transition blue/clickable when valid code is entered
     // If user clicks before valid code entered, give error saying 'please enter valid aircode'
-    pdfshift
-      .convert(`https://www.airnav.com/airport/${this.state.value}`, { filename: 'result.pdf' })
-      .then(function (body) {
-        console.log(body);
-      })
-      .catch(function ({ message, code, response, errors = null }) {
-        console.log(message);
-      });
+    this.setState({ showResult: true });
+
+    trackPromise(
+      a2pClient
+        .headlessChromeFromUrl(`https://www.airnav.com/airport/${this.state.value}`)
+        .then((res) => this.setState({ result: res.pdf }))
+    );
   }
 
   render() {
+    const { value, result, showResult } = this.state;
+
     return (
       <div className="App">
         <h1>
@@ -47,12 +49,15 @@ class App extends Component {
         <p>We want to make it easy for pilots to create the documents they need to take to the skies.</p>
         <p>Enter an airport code below and start creating your documents:</p>
 
-        <input className="code-bar" type="text" maxLength="4" value={this.state.value} onChange={this.handleChange} />
+        <input className="code-bar" type="text" maxLength="4" value={value} onChange={this.handleChange} />
 
         <br />
         <button className="button" onClick={this.buttonWasClicked}>
           Generate PDF
         </button>
+        <br />
+
+        {showResult ? <Results resultLink={result} /> : null}
       </div>
     );
   }
