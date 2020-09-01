@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import firebase from './util/firebase';
+// import firebase from './util/firebase';
 
 const pdfshift = require('pdfshift')(process.env.REACT_APP_PDF_KEY);
 
