@@ -12,19 +12,35 @@ class App extends Component {
 
     this.state = {
       value: '',
+      siteA: '',
       isValid: false,
       result: '',
       showResult: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.siteAchange = this.siteAchange.bind(this);
     this.buttonWasClicked = this.buttonWasClicked.bind(this);
+    this.otherButtonClicked = this.otherButtonClicked.bind(this);
+
+
   }
+
+
+
 
   handleChange(event) {
     event.preventDefault();
     this.setState({ value: event.target.value });
   }
+
+  siteAchange(event) {
+    event.preventDefault();
+    this.setState({ siteA: event.target.siteA });
+  }
+  
+
+
 
   buttonWasClicked() {
     // Transition blue/clickable when valid code is entered
@@ -38,8 +54,22 @@ class App extends Component {
     );
   }
 
+  otherButtonClicked() {
+    const { value, siteA, result, showResult } = this.state;
+
+    // siteA.value = {value}
+    // this.setState({ siteA: event.target.siteA });
+    // this.setState({ siteA: this.target.value });
+
+// trying learn some of this I wanted to make a button that just moved the value from one entry box to the next. 
+
+
+  }
+
+
+
   render() {
-    const { value, result, showResult } = this.state;
+    const { value, siteA, result, showResult } = this.state;
 
     return (
       <div className="App">
@@ -50,10 +80,18 @@ class App extends Component {
         <p>Enter an airport code below and start creating your documents:</p>
 
         <input className="code-bar" type="text" maxLength="4" value={value} onChange={this.handleChange} />
+        <input className="code-bar" type="text" maxLength="40" siteA={siteA} onChange={this.siteAchange} />
 
         <br />
         <button className="button" onClick={this.buttonWasClicked}>
           Generate PDF
+        </button>
+        <br />
+
+
+        <br />
+        <button className="button" onClick={this.otherButtonClicked}>
+          Load Site A
         </button>
         <br />
 
