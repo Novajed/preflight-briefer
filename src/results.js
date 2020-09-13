@@ -18,7 +18,7 @@ const Result = (props) => {
       ) : (
         <div>
           <button className="button">
-            <a href={props.resultLink}>Download</a>
+            <a href={props.resultLink}>{props.action}</a>
           </button>
         </div>
       )}
