@@ -1,0 +1,17 @@
+.aircode-bar {
+  outline: none;
+  border: none;
+  border-radius: 0;
+  border-bottom: 3px solid rgb(172, 172, 172);
+  text-transform: uppercase;
+  font-size: 46px;
+}
+
+.checkbox-container {
+  margin-top: 2px;
+}
+
+.checkbox-container input {
+  height: 20px;
+  width: 20px;
+}
