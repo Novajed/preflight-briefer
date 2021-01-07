@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AircodeForm from './components/aircodeForm';
 import Button from './components/button';
-import Results from './results';
+import Results from './components/results';
 import { trackPromise } from 'react-promise-tracker';
 import './App.css';
 
@@ -13,6 +13,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      value: '',
       optionsToggled: false,
       result: '',
       secondResult: '',
@@ -22,8 +23,15 @@ class App extends Component {
       merged: false,
     };
 
+    this.handleChange = this.handleChange.bind(this);
+    this.displayOptions = this.displayOptions.bind(this);
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    this.setState({ value: e.target.value });
   }
 
   showOptions() {
@@ -69,8 +77,14 @@ class App extends Component {
     );
   }
 
+  displayOptions() {
+    this.setState((currentState) => ({
+      optionsToggled: !currentState.optionsToggled,
+    }));
+  }
+
   render() {
-    const { result, showResult, merged, mergedDoc } = this.state;
+    const { result, showResult, merged, mergedDoc, optionsToggled, value } = this.state;
 
     return (
       <div className="App">
@@ -78,19 +92,25 @@ class App extends Component {
           <h1>
             PREFLIGHT <span className="turn-blue">BRIEFER</span>
           </h1>
-          <p>We want to make it easy for pilots to create the documents they need to take to the skies.</p>
-          <p>Enter an airport code below and start creating your documents:</p>
+          <p>We want to make it easy for pilots to create the documents they need.</p>
+          <p>Enter an IATA airport code below and start creating your documents (Ex:"LAX"):</p>
         </div>
 
-        <AircodeForm />
+        <AircodeForm
+          onChange={this.handleChange}
+          optionsToggled={optionsToggled}
+          toggleOptions={this.displayOptions}
+          value={value}
+        />
 
         <br />
-        <Button text="Generate PDF" action={this.generateDoc} />
-        <Button text="Merge Docs" action={this.mergeAllDocs} />
+
+        <Button text="Generate PDF" onClick={this.generateDoc} />
+        <Button text="Merge Docs" onClick={this.mergeAllDocs} />
 
         <br />
-        {showResult ? <Results action={'Download'} resultLink={result} /> : null}
-        {merged ? <Results action={'Download All'} resultLink={mergedDoc} /> : null}
+        {showResult ? <Results text={'Download'} resultLink={result} /> : null}
+        {merged ? <Results text={'Download All'} resultLink={mergedDoc} /> : null}
       </div>
     );
   }

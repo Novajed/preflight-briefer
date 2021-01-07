@@ -5,9 +5,9 @@ import './styles/aircodeForm.css';
 function AircodeForm(props) {
   return (
     <div>
-      <input className="aircode-bar" type="text" maxLength="4" />
-
-      <Button text="Customize" action={props.toggleOptions} />
+      <input className="aircode-bar" type="text" onChange={props.onChange} value={props.value} maxLength="4" />
+      <br />
+      <Button text="Customize" onClick={props.toggleOptions} />
 
       {props.optionsToggled ? (
         <div className="checkbox-container">
