@@ -1,17 +1,30 @@
 .aircode-bar {
-  outline: none;
   border: none;
-  border-radius: 0;
   border-bottom: 3px solid rgb(172, 172, 172);
-  text-transform: uppercase;
+  border-radius: 0;
   font-size: 46px;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.aircode-bar::placeholder {
+  color: rgb(173, 173, 173);
 }
 
 .checkbox-container {
   margin-top: 2px;
 }
 
-.checkbox-container input {
+.checkbox-container input[type='checkbox'] {
   height: 20px;
   width: 20px;
+}
+
+.checkbox-container input[type='text'] {
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid black;
+  font-size: 18px;
+  height: 20px;
+  outline: none;
 }

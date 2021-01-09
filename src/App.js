@@ -21,13 +21,25 @@ class App extends Component {
       mergedDoc: '',
       showResult: false,
       merged: false,
+      data: [{ label: 'item 1' }, { label: 'item 2' }, { label: 'item 3' }],
     };
 
+    this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.displayOptions = this.displayOptions.bind(this);
+
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
   }
+
+  toggle = (index, onChange) => {
+    const newData = [...this.state.data];
+    newData.splice(index, 1, {
+      label: this.state.data[index].label,
+      checked: !this.state.data[index].checked,
+    });
+    this.setState({ data: newData });
+    onChange(newData.filter((x) => x.checked));
+  };
 
   handleChange(e) {
     e.preventDefault();
@@ -77,14 +89,8 @@ class App extends Component {
     );
   }
 
-  displayOptions() {
-    this.setState((currentState) => ({
-      optionsToggled: !currentState.optionsToggled,
-    }));
-  }
-
   render() {
-    const { result, showResult, merged, mergedDoc, optionsToggled, value } = this.state;
+    const { result, showResult, merged, mergedDoc, value } = this.state;
 
     return (
       <div className="App">
@@ -93,20 +99,14 @@ class App extends Component {
             PREFLIGHT <span className="turn-blue">BRIEFER</span>
           </h1>
           <p>We want to make it easy for pilots to create the documents they need.</p>
-          <p>Enter an IATA airport code below and start creating your documents (Ex:"LAX"):</p>
+          <p>Enter an ICAO airport code below and start creating your documents (Ex:"LAX"):</p>
         </div>
 
-        <AircodeForm
-          onChange={this.handleChange}
-          optionsToggled={optionsToggled}
-          toggleOptions={this.displayOptions}
-          value={value}
-        />
+        <AircodeForm data={this.state.data} onChange={this.handleChange} value={value} />
 
         <br />
 
         <Button text="Generate PDF" onClick={this.generateDoc} />
-        <Button text="Merge Docs" onClick={this.mergeAllDocs} />
 
         <br />
         {showResult ? <Results text={'Download'} resultLink={result} /> : null}

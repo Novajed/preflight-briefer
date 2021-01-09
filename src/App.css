@@ -1,8 +1,8 @@
 /*Add a line on the bottom of the bar/must decide color*/
 .App {
   margin: 0 auto;
-  max-width: 600px;
-  min-width: 500px;
+  max-width: 700px;
+  min-width: 600px;
   padding: 24px;
   justify-content: center;
 }
