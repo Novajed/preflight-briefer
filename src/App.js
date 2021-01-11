@@ -21,33 +21,12 @@ class App extends Component {
       mergedDoc: '',
       showResult: false,
       merged: false,
-      data: [{ label: 'item 1' }, { label: 'item 2' }, { label: 'item 3' }],
+      link: [{ pre: '', post: '' }],
     };
 
-    this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
-  }
-
-  toggle = (index, onChange) => {
-    const newData = [...this.state.data];
-    newData.splice(index, 1, {
-      label: this.state.data[index].label,
-      checked: !this.state.data[index].checked,
-    });
-    this.setState({ data: newData });
-    onChange(newData.filter((x) => x.checked));
-  };
-
-  handleChange(e) {
-    e.preventDefault();
-    this.setState({ value: e.target.value });
-  }
-
-  showOptions() {
-    this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
   }
 
   generateDoc() {
@@ -81,6 +60,15 @@ class App extends Component {
     );
   }
 
+  handleChange(e) {
+    e.preventDefault();
+    this.setState({ value: e.target.value });
+  }
+
+  showOptions() {
+    this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
+  }
+
   mergeAllDocs() {
     trackPromise(
       a2pClient
@@ -99,10 +87,10 @@ class App extends Component {
             PREFLIGHT <span className="turn-blue">BRIEFER</span>
           </h1>
           <p>We want to make it easy for pilots to create the documents they need.</p>
-          <p>Enter an ICAO airport code below and start creating your documents (Ex:"LAX"):</p>
+          <p>Enter an ICAO airport code below and start creating your documents (Ex:"/KLAX"):</p>
         </div>
 
-        <AircodeForm data={this.state.data} onChange={this.handleChange} value={value} />
+        <AircodeForm addLine={this.addLine} data={this.state.link} onChange={this.handleChange} value={value} />
 
         <br />
 
