@@ -15,12 +15,13 @@ function AircodeForm(props) {
       />
       <h3>Build Links</h3>
       <div className="checkbox-container">
-        {props.data.map((item) => (
-          <div>
-            <label key={item.label}>
+        {props.data.map((item, index) => (
+          <div key={index}>
+            <label>
               Pre:
-              <input type="text" placeholder="Enter a URL" />
-              {props.value} Post: <input type="text" placeholder="Append a suffix" />
+              <input type="text" onChange={props.onPreChange} placeholder="Enter a URL" value={props.pre} />
+              {props.value} Post(Optional):{' '}
+              <input type="text" onChange={props.onPostChange} placeholder="Append suffix" value={props.post} />
               <Button text="Confirm" />
             </label>
           </div>

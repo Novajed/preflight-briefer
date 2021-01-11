@@ -13,17 +13,21 @@ class App extends Component {
     super(props);
 
     this.state = {
-      value: '',
-      optionsToggled: false,
-      result: '',
-      secondResult: '',
       allDocs: [],
       mergedDoc: '',
-      showResult: false,
+      post: '',
+      pre: '',
+      result: '',
+      secondResult: '',
+      value: '',
       merged: false,
-      link: [{ pre: '', post: '' }],
+      showResult: false,
+      optionsToggled: false,
+      link: [1, 2],
     };
 
+    this.handlePost = this.handlePost.bind(this);
+    this.handlePre = this.handlePre.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
@@ -65,8 +69,14 @@ class App extends Component {
     this.setState({ value: e.target.value });
   }
 
-  showOptions() {
-    this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
+  handlePost(e) {
+    e.preventDefault();
+    this.setState({ post: e.target.value });
+  }
+
+  handlePre(e) {
+    e.preventDefault();
+    this.setState({ pre: e.target.value });
   }
 
   mergeAllDocs() {
@@ -78,7 +88,7 @@ class App extends Component {
   }
 
   render() {
-    const { result, showResult, merged, mergedDoc, value } = this.state;
+    const { post, pre, result, showResult, merged, mergedDoc, value } = this.state;
 
     return (
       <div className="App">
@@ -90,7 +100,16 @@ class App extends Component {
           <p>Enter an ICAO airport code below and start creating your documents (Ex:"/KLAX"):</p>
         </div>
 
-        <AircodeForm addLine={this.addLine} data={this.state.link} onChange={this.handleChange} value={value} />
+        <AircodeForm
+          addLine={this.addLine}
+          post={post}
+          pre={pre}
+          data={this.state.link}
+          onChange={this.handleChange}
+          onPostChange={this.handlePost}
+          onPreChange={this.handlePre}
+          value={value}
+        />
 
         <br />
 
