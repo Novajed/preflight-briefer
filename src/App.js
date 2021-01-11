@@ -13,6 +13,10 @@ const a2pClient = new Api2Pdf(process.env.REACT_APP_PDF_API);
 class App extends Component {
 
   render() {
+    // -----------------------
+    // Builds the Page
+    // 
+    // -----------------------    
     const { result, showResult, merged, mergedDoc, crashHat, crashHelmet,value } = this.state;
 
     return (
@@ -28,7 +32,7 @@ class App extends Component {
         <br />
 
         <Button text="Generate PDF" onClick={this.generateDoc} />
-
+        <Button text="Crasher" onClick={this.crashed} />
         <br />
 
 
@@ -43,6 +47,10 @@ class App extends Component {
 
 
   constructor(props) {
+    // -----------------------
+    // Controls functionality and properties of the page.
+    // 
+    // ----------------------- 
     super(props);
 
     this.state = {
@@ -62,16 +70,16 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
-    this.crashIt = this.crashIt.bind(this);
+    this.crashed = this.crashed.bind(this);
 
 
   }
 
 
 
-  showOptions() {
-    this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
-  }
+
+  
+
 
 
 
@@ -102,8 +110,12 @@ class App extends Component {
 
 
   generateDoc() {
+    // -----------------------
+    // Function that sends the URLs to the a2pClient. 
+    // Attached to the button
+    // -----------------------
 
-    // If user clicks before valid code entered, give error saying 'please enter valid aircode'
+    // Turns on the download button for the results. 
     this.setState({ showResult: true });
 
 
@@ -111,12 +123,10 @@ class App extends Component {
 
     const urls = [];
 
-    
-
     // Create PDFs, save the links as variables, pass them to merge function
     trackPromise(
       a2pClient
-        .headlessChromeFromUrl(`https://www.airnav.com/airport/${this.state.aircode}`)
+        .headlessChromeFromUrl(`https://google.com`)
         .then((res) =>
           this.setState({ result: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
             urls.push(this.state.result)
@@ -141,11 +151,11 @@ class App extends Component {
 
   }
 
-
-
-
-
   mergeAllDocs() {
+    // -----------------------
+    // Funtion that merges the results. 
+    // -----------------------
+
     trackPromise(
       a2pClient
         .merge(this.state.allDocs)
@@ -154,18 +164,25 @@ class App extends Component {
   }
 
 
-
-
-
-  crashIt() {
-
+  crashed() {
+    // -----------------------
+    // John's function for learning js. 
+    // Attached to the "Crash It" button. 
+    // -----------------------
     
     this.setState({ showResult: true });
-        // this.setState({ merged: true});
-    
+    this.setState({ merged: true });
+    this.setState({ crashHelmet: true });
+
+    this.crashHelmet.setState({ text: "rash Me"})
+
+
 
 
   }
+
+
+
 
 
 
@@ -173,3 +190,25 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+// OTHER CODE STORED HERE:
+
+
+
+
+
+
+
+
+
+  // showOptions() {
+  //   this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
+  // }

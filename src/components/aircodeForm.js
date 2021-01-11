@@ -11,19 +11,30 @@ function AircodeForm(props) {
         onChange={props.onChange}
         value={props.value}
         maxLength="24"
-        placeholder="/KMEM"
+        placeholder="KMEM"
       />
+
+
       <h3>URLs</h3>
-      <div className="checkbox-container">
-        {props.data.map((item, index) => (
-          <div>
-            <label key={item.label}>
-              <input type="checkbox" />
-              <input type="text" placeholder="Enter a URL" />
-              {props.value}
-              <input type="text" placeholder="Append a suffix" />
-            </label>
-          </div>
+
+      <div className="checkbox-container"> {
+        props.data.map(   (item, index) => (
+          
+          <label key={item.label}>
+            <div>
+            
+            <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0"> 
+              <tr>
+                <td> <input type="checkbox" /> </td>
+                <td> <input name="first_name" id="First_Name" type="text" />  </td>
+                <td>   {props.value}  </td> 
+                <td>  <input name="first_name" id="First_Name" type="text" /></td>
+              </tr> 
+            </table>
+
+            </div>
+          </label>
+
         ))}
       </div>
 
