@@ -25,10 +25,12 @@ function AircodeForm(props) {
             
             <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0"> 
               <tr>
-                <td> <input type="checkbox" /> </td>
-                <td> <input name="first_name" id="First_Name" type="text" />  </td>
+                <td> <input type="checkbox" checked={item.checked} /> </td>
+
+                {/* <td> <input type="checkbox" checked='true' /> </td> */}
+                <td> <input name="pre" id="id" type="text" placeholder={item.pre}/>  </td>
                 <td>   {props.value}  </td> 
-                <td>  <input name="first_name" id="First_Name" type="text" /></td>
+                <td>  <input name="post" id="id" type="text" placeholder={item.post} /></td>
               </tr> 
             </table>
 
