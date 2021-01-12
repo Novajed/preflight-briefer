@@ -29,6 +29,7 @@ class App extends Component {
 
         <AircodeForm data={this.state.data} onChange={this.handleChange} value={value} />
 
+
         <br />
 
         <Button text="Generate PDF" onClick={this.generateDoc} />
