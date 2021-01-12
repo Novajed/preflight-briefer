@@ -38,7 +38,7 @@ class App extends Component {
       
       data: [ { id: 1 , checked: true,  pre: "www.airnav.com/airport/", post: ""}, 
               { id: 2 , checked: true,  pre: "https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27", post: "%27&designatorForAccountable=%27%27&latDegrees=%27undefined%27&latMinutes=%270%27&latSeconds=%270%27&longDegrees=%27undefined%27&longMinutes=%270%27&longSeconds=%270%27&radius=%2710%27&sortColumns=%275%20false%27&sortDirection=%27true%27&designatorForNotamNumberSearch=%27%27&notamNumber=%27%27&radiusSearchOnDesignator=%27false%27&radiusSearchDesignator=%27%27&latitudeDirection=%27N%27&longitudeDirection=%27W%27&freeFormText=%27%27&flightPathText=%27%27&flightPathDivertAirfields=%27%27&flightPathBuffer=%274%27&flightPathIncludeNavaids=%27true%27&flightPathIncludeArtcc=%27false%27&flightPathIncludeTfr=%27true%27&flightPathIncludeRegulatory=%27false%27&flightPathResultsType=%27All%20NOTAMs%27&archiveDate=%27%27&archiveDesignator=%27%27&offset=%270%27&notamsOnly=%27true%27&filters=%27%27&minRunwayLength=%27undefined%27&minRunwayWidth=%27undefined%27&runwaySurfaceTypes=%27%27&predefinedAbraka=%27undefined%27&flightPathAddlBuffer=%27%27"}, 
-              { id: 3 , checked: false,  pre: "weather", post: ""}, 
+              { id: 3 , checked: false,  pre: "https://www.aviationweather.gov/metar/data?ids=", post: ""}, 
             ],
 
 
@@ -48,9 +48,9 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
-    this.crashed = this.crashed.bind(this);
+    this.whopper = this.whopper.bind(this);
 
-    this.crashHat = 'Whopper';
+    this.crashHat = 'whopper';
   }
 
   render() {
@@ -79,7 +79,7 @@ class App extends Component {
         <br />
 
         <Button text="Generate PDF" onClick={this.generateDoc} />
-        <Button text={this.crashHat} onClick={this.crashed} />
+        <Button text={this.crashHat} onClick={this.whopper} />
         <br />
 
                                   
@@ -140,7 +140,7 @@ class App extends Component {
     // Turns on the download button for the results. 
     this.setState({ showResult: true });
 
-
+// this.state.value = "KMEM"
 
 
     const urls = [];
@@ -148,7 +148,10 @@ class App extends Component {
     // Create PDFs, save the links as variables, pass them to merge function
     trackPromise(
       a2pClient
-        .headlessChromeFromUrl(`https://google.com`)
+        .headlessChromeFromUrl(
+          `${this.state.data[0].pre}${this.state.value}${this.state.data[0].post}`
+
+        )
         .then((res) =>
           this.setState({ result: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
             urls.push(this.state.result)
@@ -161,7 +164,7 @@ class App extends Component {
       // Create PDFs, save the links as variables, pass them to merge function
       a2pClient
         .headlessChromeFromUrl(
-          `https://www.aviationweather.gov/metar/data?ids=${this.state.value}&format=raw&date=&hours=0&taf=on`
+          `${this.state.data[2].pre}${this.state.value}${this.state.data[2].post}`
         )
         .then((res) =>
           this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
@@ -169,6 +172,8 @@ class App extends Component {
           )
         )
     );
+
+
 
 
   }
@@ -186,18 +191,18 @@ class App extends Component {
   }
 
 
-  crashed() {
+  whopper() {
     // -----------------------
     // John's function for learning js. 
-    // Attached to the "Crash It" button. 
+    // Attached to the "whopper" button. 
     // -----------------------
     
     this.setState({ showResult: true });
     this.setState({ merged: true });
     this.setState({ crashHelmet: true });
 
-
-
+    this.state.value = this.state.data[0].pre;
+    // this.state.value = 'carl'
 
   }
 
