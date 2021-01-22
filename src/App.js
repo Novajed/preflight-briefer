@@ -53,6 +53,9 @@ class App extends Component {
     this.crashHat = 'whopper';
   }
 
+
+
+
   render() {
     // -----------------------
     // Builds the Page
@@ -85,7 +88,6 @@ class App extends Component {
                                   
         {showResult ? <Results text={'Download'} resultLink={result} /> : null}
         {merged ? <Results text={'Download All'} resultLink={mergedDoc} /> : null}
-        {crashHelmet ? <Results text={'Crash Me'} resultLink={crashHat} /> : null}
 
       </div>
     );
@@ -140,9 +142,6 @@ class App extends Component {
     // Turns on the download button for the results. 
     this.setState({ showResult: true });
 
-// this.state.value = "KMEM"
-
-
     const urls = [];
 
     // Create PDFs, save the links as variables, pass them to merge function
@@ -160,18 +159,18 @@ class App extends Component {
     );
 
 
-    trackPromise(
-      // Create PDFs, save the links as variables, pass them to merge function
-      a2pClient
-        .headlessChromeFromUrl(
-          `${this.state.data[2].pre}${this.state.value}${this.state.data[2].post}`
-        )
-        .then((res) =>
-          this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
-            urls.push(this.state.secondResult)
-          )
-        )
-    );
+    // trackPromise(
+    //   // Create PDFs, save the links as variables, pass them to merge function
+    //   a2pClient
+    //     .headlessChromeFromUrl(
+    //       `${this.state.data[2].pre}${this.state.value}${this.state.data[2].post}`
+    //     )
+    //     .then((res) =>
+    //       this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
+    //         urls.push(this.state.secondResult)
+    //       )
+    //     )
+    // );
 
 
 
