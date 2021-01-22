@@ -69,7 +69,7 @@ class App extends Component {
       <div className="App">
         <div>
           <h1> PREFLIGHT <span className="turn-blue">BRIEFER</span>  </h1>
-          <p>We want to make it easy for pilots to create the documents they need.</p>
+          <p>We want to make it easy for <b> pilots </b> to create the documents they need.</p>
           <p>Enter an ICAO airport code below and start creating your documents (Ex:"LAX"):</p>
         </div>
 
