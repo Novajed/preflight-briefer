@@ -139,19 +139,32 @@ class App extends Component {
     // Attached to the button
     // -----------------------
 
-    // Turns on the download button for the results. 
+
+
+
+
     this.setState({ showResult: true });
 
     const urls = [];
 
-    // Create PDFs, save the links as variables, pass them to merge function
+    // trackPromise(
+    //   // Create PDFs, save the links as variables, pass them to merge function
+    //   a2pClient
+    //     .headlessChromeFromUrl(`https://www.airnav.com/airport/${this.state.aircode}`)
+    //     .then((res) =>
+    //       this.setState({ result: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
+    //         urls.push(this.state.result)
+    //       )
+    //     )
+    // );
+
+
+        // Create PDFs, save the links as variables, pass them to merge function
     trackPromise(
       a2pClient
-        .headlessChromeFromUrl(
-          `${this.state.data[0].pre}${this.state.value}${this.state.data[0].post}`
-
-        )
-        .then((res) =>
+        .headlessChromeFromUrl(`${this.state.data[1].pre}${this.state.value}${this.state.data[1].post}`)
+         .headlessChromeFromUrl(`https://www.airnav.com/airport/${this.state.aircode}`)
+    .then((res) =>
           this.setState({ result: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
             urls.push(this.state.result)
           )
@@ -159,18 +172,35 @@ class App extends Component {
     );
 
 
-    // trackPromise(
-    //   // Create PDFs, save the links as variables, pass them to merge function
-    //   a2pClient
-    //     .headlessChromeFromUrl(
-    //       `${this.state.data[2].pre}${this.state.value}${this.state.data[2].post}`
-    //     )
-    //     .then((res) =>
-    //       this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
-    //         urls.push(this.state.secondResult)
-    //       )
-    //     )
-    // );
+    trackPromise(
+      // Create PDFs, save the links as variables, pass them to merge function
+      a2pClient
+        .headlessChromeFromUrl(
+          `https://www.aviationweather.gov/metar/data?ids=${this.state.value}&format=raw&date=&hours=0&taf=on`
+        )
+        .then((res) =>
+          this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
+            urls.push(this.state.secondResult)
+          )
+        )
+    );
+
+
+
+
+
+    // // trackPromise(
+    // //   // Create PDFs, save the links as variables, pass them to merge function
+    // //   a2pClient
+    // //     .headlessChromeFromUrl(
+    // //       `${this.state.data[2].pre}${this.state.value}${this.state.data[2].post}`
+    // //     )
+    // //     .then((res) =>
+    // //       this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
+    // //         urls.push(this.state.secondResult)
+    // //       )
+    // //     )
+    // // );
 
 
 
@@ -188,6 +218,8 @@ class App extends Component {
         .then((res) => this.setState({ mergedDoc: res.pdf }, this.setState({ merged: true })))
     );
   }
+
+
 
 
   whopper() {
@@ -236,3 +268,13 @@ export default App;
   // showOptions() {
   //   this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
   // }
+
+
+
+
+
+
+
+
+
+  // https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27geg%27&designatorForAccountable=%27%27&latDegrees=%27undefined%27&latMinutes=%270%27&latSeconds=%270%27&longDegrees=%27undefined%27&longMinutes=%270%27&longSeconds=%270%27&radius=%2710%27&sortColumns=%276%20true%27&sortDirection=%27true%27&designatorForNotamNumberSearch=%27%27&notamNumber=%27%27&radiusSearchOnDesignator=%27false%27&radiusSearchDesignator=%27%27&latitudeDirection=%27N%27&longitudeDirection=%27W%27&freeFormText=%27%27&flightPathText=%27%27&flightPathDivertAirfields=%27%27&flightPathBuffer=%274%27&flightPathIncludeNavaids=%27true%27&flightPathIncludeArtcc=%27false%27&flightPathIncludeTfr=%27true%27&flightPathIncludeRegulatory=%27false%27&flightPathResultsType=%27All%20NOTAMs%27&archiveDate=%27%27&archiveDesignator=%27%27&offset=%270%27&notamsOnly=%27true%27&filters=%27%27&minRunwayLength=%27undefined%27&minRunwayWidth=%27undefined%27&runwaySurfaceTypes=%27%27&predefinedAbraka=%27undefined%27&flightPathAddlBuffer=%27%27&download=true
