@@ -38,11 +38,9 @@ class App extends Component {
       
       data: [ { id: 0 , checked: true,  pre: "https://www.airnav.com/airport/", post: "/"}, 
               { id: 1 , checked: true,  pre: "https://www.aviationweather.gov/metar/data?ids=", post: "&format=raw&date=&hours=0&taf=on"}, 
-              // { id: 2 , checked: true,  pre: "https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27", post: "%27&designatorForAccountable=%27%27&latDegrees=%27undefined%27&latMinutes=%270%27&latSeconds=%270%27&longDegrees=%27undefined%27&longMinutes=%270%27&longSeconds=%270%27&radius=%2710%27&sortColumns=%275%20false%27&sortDirection=%27true%27&designatorForNotamNumberSearch=%27%27&notamNumber=%27%27&radiusSearchOnDesignator=%27false%27&radiusSearchDesignator=%27%27&latitudeDirection=%27N%27&longitudeDirection=%27W%27&freeFormText=%27%27&flightPathText=%27%27&flightPathDivertAirfields=%27%27&flightPathBuffer=%274%27&flightPathIncludeNavaids=%27true%27&flightPathIncludeArtcc=%27false%27&flightPathIncludeTfr=%27true%27&flightPathIncludeRegulatory=%27false%27&flightPathResultsType=%27All%20NOTAMs%27&archiveDate=%27%27&archiveDesignator=%27%27&offset=%270%27&notamsOnly=%27true%27&filters=%27%27&minRunwayLength=%27undefined%27&minRunwayWidth=%27undefined%27&runwaySurfaceTypes=%27%27&predefinedAbraka=%27undefined%27&flightPathAddlBuffer=%27%27"}, 
-
-              // https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27
-
               { id: 2 , checked: false,  pre: "https://google.com"}, 
+              // { id: 3 , checked: true,  pre: "https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27", post: "%27&designatorForAccountable=%27%27&latDegrees=%27undefined%27&latMinutes=%270%27&latSeconds=%270%27&longDegrees=%27undefined%27&longMinutes=%270%27&longSeconds=%270%27&radius=%2710%27&sortColumns=%275%20false%27&sortDirection=%27true%27&designatorForNotamNumberSearch=%27%27&notamNumber=%27%27&radiusSearchOnDesignator=%27false%27&radiusSearchDesignator=%27%27&latitudeDirection=%27N%27&longitudeDirection=%27W%27&freeFormText=%27%27&flightPathText=%27%27&flightPathDivertAirfields=%27%27&flightPathBuffer=%274%27&flightPathIncludeNavaids=%27true%27&flightPathIncludeArtcc=%27false%27&flightPathIncludeTfr=%27true%27&flightPathIncludeRegulatory=%27false%27&flightPathResultsType=%27All%20NOTAMs%27&archiveDate=%27%27&archiveDesignator=%27%27&offset=%270%27&notamsOnly=%27true%27&filters=%27%27&minRunwayLength=%27undefined%27&minRunwayWidth=%27undefined%27&runwaySurfaceTypes=%27%27&predefinedAbraka=%27undefined%27&flightPathAddlBuffer=%27%27"}, 
+              
 
 ],
 
@@ -88,13 +86,18 @@ class App extends Component {
         <br />
 
         <Button text="Generate PDF" onClick={this.generateDoc} />
-        <Button text={this.crashHat} onClick={this.whopper} />
+        <br />
+
         <Button text="merge docs" onClick={this.mergeAllDocs} />
         <br />
 
-                                  
-        {showResult ? <Results text={'Download'} resultLink={result} /> : null}
         {merged ? <Results text={'Download All'} resultLink={mergedDoc} /> : null}
+
+
+
+
+        {/* <Button text={this.crashHat} onClick={this.whopper} /> */}
+
 
       </div>
     );
@@ -110,10 +113,12 @@ class App extends Component {
 
 
   
-  checkBoxChecked = (index, onChange) => {
+  checkBoxChecked = (indx, onChange) => {
     // const newData = [...this.state.data];
+    
     console.log("checkbox checked")
-
+    console.log(this.state.data.index)
+ 
     // const urlChecked = newData.find(urlChecked => urlChecked.key === id);
     // urlChecked.checked = !urlChecked.checked;
     // this.state.data = newData;
@@ -164,7 +169,7 @@ class App extends Component {
     this.setState({ showResult: true });
     const urls = [];
 
-  
+
 
     // Create PDF of the coverpage.  
     // coverpage is a website on the robbinsware.com github site
@@ -172,66 +177,64 @@ class App extends Component {
     trackPromise(
       a2pClient
 
-         .headlessChromeFromUrl(`https://robbinsware.github.io/project-PFB.html`)
+        .headlessChromeFromUrl(`https://robbinsware.github.io/project-PFB.html`)
         // .headlessChromeFromUrl(`https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27LAS`)
 
-         .then((res) => this.setState({ result: res.pdf, allDocs: [res.pdf] }, () => urls.push(this.state.result)
-          )
+        .then((res) => this.setState({ result: res.pdf, allDocs: [res.pdf] }, () => urls.push(this.state.result)
+        )
         )
     );
 
 
-    var i = 0;   // iterates backwards to keep them in order
-     var totalURLs = this.state.data.length;
-    
-while (i < totalURLs) {
 
-// *** ADD:  If statement here to inspect the checkbox. 
+    // Captures the rest of the input URLs
+    var i = 0;   
+    var totalURLs = this.state.data.length;
 
-
-  if (this.state.data[i].checked===true ) {
-    trackPromise(
-      // Create PDFs, save the links as variables, pass them to merge function
-      a2pClient
-        //  .headlessChromeFromUrl(`https://www.airnav.com/airport/${this.state.aircode}`)  // Old method
-        // .headlessChromeFromUrl(`https://www.yahoo.com` )        // basic test that worked
-        //  .headlessChromeFromUrl(`${this.state.data[0].pre}`)   // this worked for the prevalue
-          .headlessChromeFromUrl(`${this.state.data[i].pre}${this.state.value}${this.state.data[i].post}`)
-        
-        .then((res) =>
-          this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
-            urls.push(this.state.secondResult)
-          )
-        )
-
-    );
-  
-  };
-
-    
-  if (this.state.data[i].checked===false ) {
-    trackPromise(
-      // Create PDFs, save the links as variables, pass them to merge function
-      a2pClient
-        //  .headlessChromeFromUrl(`https://www.airnav.com/airport/${this.state.aircode}`)  // Old method
-        // .headlessChromeFromUrl(`https://www.yahoo.com` )        // basic test that worked
-        //  .headlessChromeFromUrl(`${this.state.data[0].pre}`)   // this worked for the prevalue
-          .headlessChromeFromUrl(`${this.state.data[i].pre}`)
-        
-        .then((res) =>
-          this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
-            urls.push(this.state.secondResult)
-          )
-        )
-
-    );
-  
-  };
-
-i =i + 1;
+    while (i < totalURLs) {
+      // cycle througn the URLs and build each into a pdf
 
 
-  };
+      if (this.state.data[i].checked === true) {
+        // The checkbox is checked so use the full URL construction 
+
+        trackPromise(
+          // Create PDFs, save the links as variables, pass them to merge function
+          a2pClient
+            //  .headlessChromeFromUrl(`https://www.airnav.com/airport/${this.state.aircode}`)  // Old method
+            // .headlessChromeFromUrl(`https://www.yahoo.com` )        // basic test that worked
+            //  .headlessChromeFromUrl(`${this.state.data[0].pre}`)   // this worked for the prevalue
+            .headlessChromeFromUrl(`${this.state.data[i].pre}${this.state.value}${this.state.data[i].post}`)
+
+            .then((res) =>
+              this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
+                urls.push(this.state.secondResult)
+              )
+            )
+
+        );
+
+      } else {
+        // The checkbox isn't checked so just use the pre as the entire URL 
+
+        trackPromise(
+          // Create PDFs, save the links as variables, pass them to merge function
+          a2pClient
+            .headlessChromeFromUrl(`${this.state.data[i].pre}`)
+            .then((res) =>
+              this.setState({ secondResult: res.pdf, allDocs: [...this.state.allDocs, res.pdf] }, () =>
+                urls.push(this.state.secondResult)
+              )
+            )
+
+        );
+
+      };
+
+      i = i + 1;
+
+
+    };
 
 
 
@@ -255,6 +258,11 @@ i =i + 1;
 
 
   }
+
+
+
+
+
 
 
 
@@ -290,32 +298,3 @@ export default App;
 
 
 
-
-
-// OTHER CODE STORED HERE:
-
-
-
-
-
-
-
-
-
-  // showOptions() {
-  //   this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
-  // }
-
-
-
-
-
-
-
-
-
-
-  // https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27geg%27&designatorForAccountable=%27%27&latDegrees=%27undefined%27&latMinutes=%270%27&latSeconds=%270%27&longDegrees=%27undefined%27&longMinutes=%270%27&longSeconds=%270%27&radius=%2710%27&sortColumns=%276%20true%27&sortDirection=%27true%27&designatorForNotamNumberSearch=%27%27&notamNumber=%27%27&radiusSearchOnDesignator=%27false%27&radiusSearchDesignator=%27%27&latitudeDirection=%27N%27&longitudeDirection=%27W%27&freeFormText=%27%27&flightPathText=%27%27&flightPathDivertAirfields=%27%27&flightPathBuffer=%274%27&flightPathIncludeNavaids=%27true%27&flightPathIncludeArtcc=%27false%27&flightPathIncludeTfr=%27true%27&flightPathIncludeRegulatory=%27false%27&flightPathResultsType=%27All%20NOTAMs%27&archiveDate=%27%27&archiveDesignator=%27%27&offset=%270%27&notamsOnly=%27true%27&filters=%27%27&minRunwayLength=%27undefined%27&minRunwayWidth=%27un              { id: 2 , checked: true,  pre: "https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27", post: "%27&designatorForAccountable=%27%27&latDegrees=%27undefined%27&latMinutes=%270%27&latSeconds=%270%27&longDegrees=%27undefined%27&longMinutes=%270%27&longSeconds=%270%27&radius=%2710%27&sortColumns=%275%20false%27&sortDirection=%27true%27&designatorForNotamNumberSearch=%27%27&notamNumber=%27%27&radiusSearchOnDesignator=%27false%27&radiusSearchDesignator=%27%27&latitudeDirection=%27N%27&longitudeDirection=%27W%27&freeFormText=%27%27&flightPathText=%27%27&flightPathDivertAirfields=%27%27&flightPathBuffer=%274%27&flightPathIncludeNavaids=%27true%27&flightPathIncludeArtcc=%27false%27&flightPathIncludeTfr=%27true%27&flightPathIncludeRegulatory=%27false%27&flightPathResultsType=%27All%20NOTAMs%27&archiveDate=%27%27&archiveDesignator=%27%27&offset=%270%27&notamsOnly=%27true%27&filters=%27%27&minRunwayLength=%27undefined%27&minRunwayWidth=%27undefined%27&runwaySurfaceTypes=%27%27&predefinedAbraka=%27undefined%27&flightPathAddlBuffer=%27%27"}, 
-
-
-  // { id: 2 , checked: true,  pre: "https://notams.aim.faa.gov/notamSearch/createNotamPdf?allNotams=true&searchType=0&designatorsForLocation=%27", post: "%27&designatorForAccountable=%27%27&latDegrees=%27undefined%27&latMinutes=%270%27&latSeconds=%270%27&longDegrees=%27undefined%27&longMinutes=%270%27&longSeconds=%270%27&radius=%2710%27&sortColumns=%275%20false%27&sortDirection=%27true%27&designatorForNotamNumberSearch=%27%27&notamNumber=%27%27&radiusSearchOnDesignator=%27false%27&radiusSearchDesignator=%27%27&latitudeDirection=%27N%27&longitudeDirection=%27W%27&freeFormText=%27%27&flightPathText=%27%27&flightPathDivertAirfields=%27%27&flightPathBuffer=%274%27&flightPathIncludeNavaids=%27true%27&flightPathIncludeArtcc=%27false%27&flightPathIncludeTfr=%27true%27&flightPathIncludeRegulatory=%27false%27&flightPathResultsType=%27All%20NOTAMs%27&archiveDate=%27%27&archiveDesignator=%27%27&offset=%270%27&notamsOnly=%27true%27&filters=%27%27&minRunwayLength=%27undefined%27&minRunwayWidth=%27undefined%27&runwaySurfaceTypes=%27%27&predefinedAbraka=%27undefined%27&flightPathAddlBuffer=%27%27"}, 
