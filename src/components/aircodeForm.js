@@ -28,9 +28,9 @@ function AircodeForm(props) {
                 <td> <input type="checkbox" checked={item.checked} /> </td>
 
                 {/* <td> <input type="checkbox" checked='true' /> </td> */}
-                <td> <input name="pre" id="id" type="text" placeholder={item.pre}/>  </td>
-                <td>   {props.value}  </td> 
-                <td>  <input name="post" id="id" type="text" placeholder={item.post} /></td>
+                <td align="left" width="100%">  <input name="pre" id="id" type="text" placeholder={item.pre}/>  </td>
+                <td align="left" width="20%">   {props.value}  </td> 
+                <td align="left" width="10%">  <input name="post" id="id" type="text" placeholder={item.post} /></td>
               </tr> 
             </table>
 
