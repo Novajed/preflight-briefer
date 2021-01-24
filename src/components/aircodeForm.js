@@ -3,11 +3,16 @@ import Button from './button';
 import './styles/aircodeForm.css';
 
 function AircodeForm(props) {
+
+
   return (
     <div>
+
+      {/* Airport Code Entry Field  */}
       <input
         className="aircode-bar"
         type="text"
+        
         onChange={props.onChange}
         value={props.value}
         maxLength="24"
@@ -15,47 +20,41 @@ function AircodeForm(props) {
       />
 
 
+
+      {/* URL entry checkboxes and entry fields */}
+      
+
       <h3>URLs</h3>
-
       <div className="checkbox-container"> {
-        props.data.map(   (item, index) => (
+
+        props.data.map((item, index) => (   // for each url in the data array...
+
           
-          <label key={item.label}>
-            <div>
-            
-            <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0"> 
-              <tr>
-                <td> <input type="checkbox" checked={item.checked} /> </td>
 
-                {/* <td> <input type="checkbox" checked='true' /> </td> */}
-                <td align="left" width="100%">  <input name="pre" id="id" type="text" placeholder={item.pre}/>  </td>
-                <td align="left" width="20%">   {props.value}  </td> 
-                <td align="left" width="10%">  <input name="post" id="id" type="text" placeholder={item.post} /></td>
-              </tr> 
-            </table>
+          <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              
+              <td> <input type="checkbox" checked={item.checked}  onChange={props.checkBoxChecked} /> </td>
+              {/* <td>  <input type="checkbox" checked={item.checked} />  </td> */}
+              <td>  <input name="pre" id="id" type="text" placeholder={item.pre} />  </td>
+              <td>      {props.value}  </td>
+              <td>  <input name="post" id="id" type="text" placeholder={item.post} /></td>
 
-            </div>
-          </label>
+
+            </tr>
+          </table>
+
 
         ))}
+
       </div>
 
-      {props.optionsToggled ? (
-        <>
-          <div className="checkbox-container">
-            <input type="checkbox" name="airnav" value="Airnav" />
-            <label htmlFor="airnav">AirNav</label>
-            <br />
-            <input type="checkbox" name="aviation" value="Aviation" />
-            <label htmlFor="aviation">AviationWeather</label>
-            <br />
-            <input type="checkbox" name="notams" value="NOTAM" />
-            <label htmlFor="notam">NOTAM</label>
-          </div>
-        </>
-      ) : null}
+
     </div>
   );
 }
+
+
+
 
 export default AircodeForm;

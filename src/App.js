@@ -82,7 +82,7 @@ class App extends Component {
           <p>Enter an ICAO airport code below and start creating your documents (Ex:"LAX"):</p>
         </div>
 
-        <AircodeForm data={this.state.data} onChange={this.handleChange} value={value} />
+        <AircodeForm data={this.state.data} onChange={this.handleChange} checkBoxChecked={this.checkBoxChecked} value={value} />
 
 
         <br />
@@ -110,7 +110,17 @@ class App extends Component {
 
 
   
+  checkBoxChecked = (index, onChange) => {
+    // const newData = [...this.state.data];
+    console.log("checkbox checked")
 
+    // const urlChecked = newData.find(urlChecked => urlChecked.key === id);
+    // urlChecked.checked = !urlChecked.checked;
+    // this.state.data = newData;
+    const newData = [...this.state.data];
+
+
+  };
 
 
 
@@ -128,8 +138,12 @@ class App extends Component {
 
 
   handleChange(e) {
+    // functioned defined here but called by aircodeForm.js when airfield code is changed. 
+    console.log("airport code changed")
     e.preventDefault();
     this.setState({ value: e.target.value });
+
+
   }
 
 
