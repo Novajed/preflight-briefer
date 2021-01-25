@@ -25,17 +25,16 @@ function AircodeForm(props) {
       
 
       <h3>URLs</h3>
+      
       <div className="checkbox-container"> {
 
         props.data.map((item, index) => (   // for each url in the data array...
+          <div key={index}>
 
-
-          <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <table align="center" width="100%" > <tbody>
             <tr>
               
-              <td> <input type="checkbox" checked={item.checked}  onChange={props.checkBoxChecked} /> </td>
-              {/* <fieldset                                       onChange={(e) => this.props.handleChange("tags", e)}> */}
-              {/* <td>  <input type="checkbox" checked={item.checked} />  </td> */}
+              <td> <input type="checkbox" checked={item.checked}  onChange={handleCheckBoxClick} /> </td>
 
               <td>  <input name="pre" id="id" type="text" placeholder={item.pre} />  </td>
 
@@ -44,10 +43,10 @@ function AircodeForm(props) {
               <td>  <input name="post" id="id" type="text" placeholder={item.post} /></td>
 
 
-            </tr>
-          </table>
+              </tr>
+            </tbody></table>
 
-
+          </div>
         ))}
 
       </div>
@@ -55,10 +54,16 @@ function AircodeForm(props) {
 
     </div>
 
-    
+
   );
 
+  function handleCheckBoxClick() {
 
+      const doug = '12';
+
+    props.checkBoxChecked(doug);
+
+  }
 
 
 }

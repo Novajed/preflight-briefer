@@ -113,11 +113,11 @@ class App extends Component {
 
 
   
-  checkBoxChecked = (indx, onChange) => {
+  checkBoxChecked = (indx) => {
     // const newData = [...this.state.data];
     
     console.log("checkbox checked")
-    console.log(this.state.data.index)
+    console.log(indx)
  
     // const urlChecked = newData.find(urlChecked => urlChecked.key === id);
     // urlChecked.checked = !urlChecked.checked;
@@ -125,6 +125,8 @@ class App extends Component {
     const newData = [...this.state.data];
 
 
+
+    
   };
 
 
