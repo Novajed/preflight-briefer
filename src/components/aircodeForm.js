@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import InputField from './inputField';
 import Button from './button';
 import './styles/aircodeForm.css';
 
 function AircodeForm(props) {
+  const [urls, setUrls] = useState([1, 2]);
+
   return (
     <div>
       <input
@@ -14,20 +17,10 @@ function AircodeForm(props) {
         placeholder="/KLAX"
       />
       <h3>Build Links</h3>
-      <div className="checkbox-container">
-        {props.data.map((item, index) => (
-          <div key={index}>
-            <label>
-              Pre:
-              <input type="text" onChange={props.onPreChange} placeholder="Enter a URL" value={props.pre} />
-              {props.value} Post(Optional):{' '}
-              <input type="text" onChange={props.onPostChange} placeholder="Append suffix" value={props.post} />
-              <Button text="Confirm" />
-            </label>
-          </div>
-        ))}
-      </div>
-      <Button text="Add" onClick={props.addLine} />
+      {urls.map((url) => (
+        <InputField identifier={props.value} />
+      ))}
+      <Button text="Add" />
     </div>
   );
 }

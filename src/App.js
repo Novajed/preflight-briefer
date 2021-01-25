@@ -101,7 +101,6 @@ class App extends Component {
         </div>
 
         <AircodeForm
-          addLine={this.addLine}
           post={post}
           pre={pre}
           data={this.state.link}
