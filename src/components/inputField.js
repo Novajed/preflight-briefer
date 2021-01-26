@@ -5,7 +5,6 @@ import './styles/aircodeForm.css';
 function InputField(props) {
   const [pre, setPre] = useState('');
   const [post, setPost] = useState('');
-  const [url, setUrl] = useState('');
 
   const handlePre = (e) => {
     e.preventDefault();

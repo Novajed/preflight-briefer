@@ -18,9 +18,9 @@ function AircodeForm(props) {
       />
       <h3>Build Links</h3>
       {urls.map((url) => (
-        <InputField identifier={props.value} />
+        <InputField key={url.toString()} identifier={props.value} />
       ))}
-      <Button text="Add" />
+      <Button onClick={() => setUrls()} text="Add" />
     </div>
   );
 }
