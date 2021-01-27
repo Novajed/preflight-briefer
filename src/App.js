@@ -23,7 +23,6 @@ class App extends Component {
       merged: false,
       showResult: false,
       optionsToggled: false,
-      link: [1, 2],
     };
 
     this.handlePost = this.handlePost.bind(this);
@@ -103,7 +102,6 @@ class App extends Component {
         <AircodeForm
           post={post}
           pre={pre}
-          data={this.state.link}
           onChange={this.handleChange}
           onPostChange={this.handlePost}
           onPreChange={this.handlePre}

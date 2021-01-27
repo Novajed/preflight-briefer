@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import InputField from './inputField';
 import Button from './button';
 import './styles/aircodeForm.css';
 
 function AircodeForm(props) {
-  const [urls, setUrls] = useState([1, 2]);
+  const [urls, setUrls] = useState([
+    {
+      id: 0,
+      isChecked: false,
+    },
+  ]);
+
+  const handleAdd = (e) => {
+    const newUrls = urls.slice();
+
+    const newId = newUrls[newUrls.length - 1].id + 1;
+    const newIsChecked = false;
+
+    const obj = { id: newId, isChecked: newIsChecked };
+
+    setUrls([...urls, obj]);
+  };
+
+  function handleRemove(url) {
+    const newUrls = urls.filter((u) => u !== url);
+    setUrls(newUrls);
+  }
 
   return (
     <div>
@@ -17,10 +38,11 @@ function AircodeForm(props) {
         placeholder="/KLAX"
       />
       <h3>Build Links</h3>
-      {urls.map((url) => (
-        <InputField key={url.toString()} identifier={props.value} />
+      {urls.map((url, index) => (
+        <InputField key={index} identifier={props.value} />
       ))}
-      <Button onClick={() => setUrls()} text="Add" />
+      <Button onClick={handleAdd} text="Add" />
+      <Button onClick={handleRemove} text="Remove Selected" />
     </div>
   );
 }
