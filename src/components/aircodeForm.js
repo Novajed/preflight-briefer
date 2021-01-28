@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import InputField from './inputField';
 import Button from './button';
 import './styles/aircodeForm.css';
@@ -6,26 +6,47 @@ import './styles/aircodeForm.css';
 function AircodeForm(props) {
   const [urls, setUrls] = useState([
     {
-      id: 0,
+      id: 1,
       isChecked: false,
     },
   ]);
 
-  const handleAdd = (e) => {
-    const newUrls = urls.slice();
+  const defaultUrl = [
+    {
+      id: 1,
+      isChecked: false,
+    },
+  ];
 
-    const newId = newUrls[newUrls.length - 1].id + 1;
-    const newIsChecked = false;
-
-    const obj = { id: newId, isChecked: newIsChecked };
-
-    setUrls([...urls, obj]);
+  const resetUrls = () => {
+    setUrls([...defaultUrl]);
   };
 
-  function handleRemove(url) {
-    const newUrls = urls.filter((u) => u !== url);
+  const handleAdd = () => {
+    console.log(urls);
+    if (urls.length < 1) {
+      resetUrls();
+    } else {
+      const newUrls = urls.slice();
+      const newId = newUrls[newUrls.length - 1].id + 1;
+      const newIsChecked = false;
+      const obj = { id: newId, isChecked: newIsChecked };
+      setUrls([...urls, obj]);
+    }
+  };
+
+  const handleRemove = (url) => {
+    const newUrls = urls.filter((u) => u.isChecked !== true);
     setUrls(newUrls);
-  }
+  };
+
+  const handleChecked = (index) => {
+    return () => {
+      let newUrls = [...urls];
+      newUrls[index].isChecked = !newUrls[index].isChecked;
+      setUrls(newUrls);
+    };
+  };
 
   return (
     <div>
@@ -38,8 +59,14 @@ function AircodeForm(props) {
         placeholder="/KLAX"
       />
       <h3>Build Links</h3>
+
       {urls.map((url, index) => (
-        <InputField key={index} identifier={props.value} />
+        <InputField
+          key={url.id}
+          identifier={props.value}
+          checked={url.isChecked}
+          handleChecked={handleChecked(index)}
+        />
       ))}
       <Button onClick={handleAdd} text="Add" />
       <Button onClick={handleRemove} text="Remove Selected" />

@@ -15,8 +15,6 @@ class App extends Component {
     this.state = {
       allDocs: [],
       mergedDoc: '',
-      post: '',
-      pre: '',
       result: '',
       secondResult: '',
       value: '',
@@ -25,8 +23,6 @@ class App extends Component {
       optionsToggled: false,
     };
 
-    this.handlePost = this.handlePost.bind(this);
-    this.handlePre = this.handlePre.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
@@ -68,16 +64,6 @@ class App extends Component {
     this.setState({ value: e.target.value });
   }
 
-  handlePost(e) {
-    e.preventDefault();
-    this.setState({ post: e.target.value });
-  }
-
-  handlePre(e) {
-    e.preventDefault();
-    this.setState({ pre: e.target.value });
-  }
-
   mergeAllDocs() {
     trackPromise(
       a2pClient
@@ -87,7 +73,7 @@ class App extends Component {
   }
 
   render() {
-    const { post, pre, result, showResult, merged, mergedDoc, value } = this.state;
+    const { result, showResult, merged, mergedDoc, value } = this.state;
 
     return (
       <div className="App">
@@ -99,14 +85,7 @@ class App extends Component {
           <p>Enter an ICAO airport code below and start creating your documents (Ex:"/KLAX"):</p>
         </div>
 
-        <AircodeForm
-          post={post}
-          pre={pre}
-          onChange={this.handleChange}
-          onPostChange={this.handlePost}
-          onPreChange={this.handlePre}
-          value={value}
-        />
+        <AircodeForm onChange={this.handleChange} value={value} />
 
         <br />
 

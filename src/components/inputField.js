@@ -5,11 +5,6 @@ import './styles/aircodeForm.css';
 function InputField(props) {
   const [pre, setPre] = useState('');
   const [post, setPost] = useState('');
-  const [checked, setChecked] = useState(false);
-
-  const handleChecked = (e) => {
-    setChecked(e.target.checked);
-  };
 
   const handlePre = (e) => {
     e.preventDefault();
@@ -23,10 +18,10 @@ function InputField(props) {
 
   return (
     <>
-      <div id={props.id} className="checkbox-container">
+      <div className="checkbox-container">
         <div>
           <label>
-            <input type="checkbox" onChange={handleChecked} checked={checked} />
+            <input type="checkbox" onChange={props.handleChecked} checked={props.checked} />
             Pre:
             <input type="text" onChange={handlePre} placeholder="Enter a URL" value={pre} />
             {props.identifier} Post(Optional):{' '}
