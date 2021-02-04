@@ -89,7 +89,7 @@ class App extends Component {
 
         <br />
 
-        <Button text="Generate PDF" onClick={this.generateDoc} />
+        <Button className="button" text="Generate PDF" onClick={this.generateDoc} />
 
         <br />
         {showResult ? <Results text={'Download'} resultLink={result} /> : null}

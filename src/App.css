@@ -1,7 +1,7 @@
 /*Add a line on the bottom of the bar/must decide color*/
 .App {
   margin: 0 auto;
-  max-width: 700px;
+  max-width: 800px;
   min-width: 600px;
   padding: 24px;
   justify-content: center;
@@ -18,6 +18,20 @@
   }
 }
 
+/* Basic modifiers */
+
+.float-left {
+  float: left;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
 .turn-blue {
   color: #0698d9;
+}
+
+h4 {
+  margin: 0;
 }

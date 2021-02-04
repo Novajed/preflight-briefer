@@ -2,7 +2,7 @@
   border: none;
   border-bottom: 3px solid rgb(172, 172, 172);
   border-radius: 0;
-  font-size: 46px;
+  font-size: 42px;
   outline: none;
   text-transform: uppercase;
 }
@@ -13,6 +13,8 @@
 
 .checkbox-container {
   margin-top: 2px;
+  margin-bottom: 10px;
+  width: 500px;
 }
 
 .checkbox-container input[type='checkbox'] {
@@ -21,10 +23,47 @@
 }
 
 .checkbox-container input[type='text'] {
-  border: none;
-  border-radius: 0;
-  border-bottom: 2px solid black;
-  font-size: 18px;
-  height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgb(241, 241, 241);
+  border: 1px solid rgb(241, 241, 241);
+  border-radius: 5px;
+  box-shadow: none;
+  color: black;
+  margin-bottom: 2px;
+  padding: 10px 20px 10px;
+  font-size: 15px;
   outline: none;
+  width: 60%;
+  clear: both;
+}
+
+.checkbox-container input[type='text']:focus {
+  border: 1px solid #2e71ff;
+}
+
+.append-text {
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
+
+.confirm-btn {
+  background-color: #2e71ff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+
+  outline: none;
+  transition: all 150ms;
+}
+
+.confirm-btn:hover {
+  background-color: #1a62fc;
+  cursor: pointer;
 }

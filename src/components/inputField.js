@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from './button';
 import './styles/aircodeForm.css';
+import '../App.css';
 
 function InputField(props) {
   const [pre, setPre] = useState('');
@@ -19,16 +20,19 @@ function InputField(props) {
   return (
     <>
       <div className="checkbox-container">
-        <div>
-          <label>
-            <input type="checkbox" onChange={props.handleChecked} checked={props.checked} />
-            Pre:
-            <input type="text" onChange={handlePre} placeholder="Enter a URL" value={pre} />
-            {props.identifier} Post(Optional):{' '}
-            <input type="text" onChange={handlePost} placeholder="Append suffix" value={post} />
-            <Button text="Confirm" />
-          </label>
-        </div>
+        <form>
+          <input className="float-left" type="checkbox" onChange={props.handleChecked} checked={props.checked} />
+          <h4>Link {props.entryNumber}</h4>
+          <br />
+          <input type="text" onChange={handlePre} placeholder="Enter a URL" value={pre} />
+          <p> {props.identifier}</p>
+
+          <h4 className="append-text">Suffix</h4>
+          <input type="text" onChange={handlePost} placeholder="(Optional) Append suffix" value={post} />
+          <br />
+          <Button className="confirm-btn" text="Confirm" />
+          <br />
+        </form>
       </div>
     </>
   );
