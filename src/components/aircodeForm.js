@@ -58,7 +58,7 @@ function AircodeForm(props) {
         maxLength="24"
         placeholder="/KLAX"
       />
-      <h3>Build Links</h3>
+      <h3>URLs</h3>
 
       {urls.map((url, index) => (
         <InputField

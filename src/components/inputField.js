@@ -21,9 +21,9 @@ function InputField(props) {
     <>
       <div className="checkbox-container">
         <form>
-          <input className="float-left" type="checkbox" onChange={props.handleChecked} checked={props.checked} />
           <h4>Link {props.entryNumber}</h4>
           <br />
+          <input className="float-left" type="checkbox" onChange={props.handleChecked} checked={props.checked} />
           <input type="text" onChange={handlePre} placeholder="Enter a URL" value={pre} />
           <p> {props.identifier}</p>
 
