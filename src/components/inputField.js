@@ -6,6 +6,7 @@ import '../App.css';
 function InputField(props) {
   const [pre, setPre] = useState('');
   const [post, setPost] = useState('');
+  const [link, setLink] = useState('');
 
   const handlePre = (e) => {
     e.preventDefault();
@@ -17,22 +18,27 @@ function InputField(props) {
     setPost(e.target.value);
   };
 
+  const handleConfirm = () => {
+    setLink(pre + props.identifier + post);
+    return link;
+  };
+
   return (
     <>
       <div className="checkbox-container">
         <form>
           <h4>Link {props.entryNumber}</h4>
-          <br />
           <input className="float-left" type="checkbox" onChange={props.handleChecked} checked={props.checked} />
-          <input type="text" onChange={handlePre} placeholder="Enter a URL" value={pre} />
-          <p> {props.identifier}</p>
+          <span className="mobile-container">
+            <input type="text" onChange={handlePre} placeholder="Enter a URL" value={pre} />
+            <p className="id-desktop"> {props.identifier} </p>
 
-          <h4 className="append-text">Suffix</h4>
-          <input type="text" onChange={handlePost} placeholder="(Optional) Append suffix" value={post} />
-          <br />
-          <Button className="confirm-btn" text="Confirm" />
+            {/* <h4 className="append-text id-desktop">Suffix</h4> */}
+            <input type="text" onChange={handlePost} placeholder="(Optional) Append suffix" value={post} />
+          </span>
           <br />
         </form>
+        <Button className="confirm-btn" onClick={handleConfirm} text="Confirm" />
       </div>
     </>
   );
