@@ -63,13 +63,14 @@ function AircodeForm(props) {
       {urls.map((url, index) => (
         <InputField
           key={url.id}
+          checked={url.isChecked}
           entryNumber={url.id}
           identifier={props.value}
-          checked={url.isChecked}
-          handleChecked={handleChecked(index)}
+          onChecked={handleChecked(index)}
+          onConfirm={props.onConfirm}
         />
       ))}
-      <Button onClick={handleAdd} className="button" text="Add" />
+      <Button onClick={handleAdd} className="button" text="New Link" />
       <Button onClick={handleRemove} className="button" text="Remove Selected" />
     </div>
   );

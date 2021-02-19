@@ -19,7 +19,11 @@ function InputField(props) {
   };
 
   const handleConfirm = () => {
-    setLink(pre + props.identifier + post);
+    let url = pre + props.identifier + post;
+    console.log(url);
+    setLink(url);
+    console.log(link);
+    props.onConfirm(url);
     return link;
   };
 
@@ -28,12 +32,10 @@ function InputField(props) {
       <div className="checkbox-container">
         <form>
           <h4>Link {props.entryNumber}</h4>
-          <input className="float-left" type="checkbox" onChange={props.handleChecked} checked={props.checked} />
+          <input className="float-left" type="checkbox" onChange={props.onChecked} checked={props.checked} />
           <span className="mobile-container">
             <input type="text" onChange={handlePre} placeholder="Enter a URL" value={pre} />
             <p className="id-desktop"> {props.identifier} </p>
-
-            {/* <h4 className="append-text id-desktop">Suffix</h4> */}
             <input type="text" onChange={handlePost} placeholder="(Optional) Append suffix" value={post} />
           </span>
           <br />

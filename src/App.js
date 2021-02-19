@@ -21,11 +21,13 @@ class App extends Component {
       merged: false,
       showResult: false,
       optionsToggled: false,
+      urls: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.generateDoc = this.generateDoc.bind(this);
     this.mergeAllDocs = this.mergeAllDocs.bind(this);
+    this.handleConfirm = this.handleConfirm.bind(this);
   }
 
   generateDoc() {
@@ -64,6 +66,11 @@ class App extends Component {
     this.setState({ value: e.target.value });
   }
 
+  handleConfirm(url) {
+    let newUrls = [...this.state.urls, url];
+    this.setState({ urls: newUrls });
+  }
+
   mergeAllDocs() {
     trackPromise(
       a2pClient
@@ -85,7 +92,7 @@ class App extends Component {
           <p>Enter an ICAO airport code below and start creating your documents (Ex:"/KLAX"):</p>
         </div>
 
-        <AircodeForm onChange={this.handleChange} value={value} />
+        <AircodeForm onChange={this.handleChange} onConfirm={this.handleConfirm} value={value} />
 
         <br />
 
