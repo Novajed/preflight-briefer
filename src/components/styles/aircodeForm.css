@@ -1,0 +1,78 @@
+.aircode-bar {
+  border: none;
+  border-bottom: 3px solid rgb(172, 172, 172);
+  border-radius: 0;
+  font-size: 42px;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.aircode-bar::placeholder {
+  color: rgb(173, 173, 173);
+}
+
+.checkbox-container {
+  margin-top: 2px;
+  margin-bottom: 10px;
+  width: 700px;
+}
+
+.checkbox-container input[type='checkbox'] {
+  height: 32px;
+  width: 32px;
+}
+
+.checkbox-container input[type='text'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgb(241, 241, 241);
+  border: 1px solid rgb(241, 241, 241);
+  border-radius: 5px;
+  box-shadow: none;
+  color: black;
+  margin-bottom: 2px;
+  padding: 10px 20px 10px;
+  font-size: 15px;
+  outline: none;
+  min-width: 30%;
+  clear: both;
+}
+
+.checkbox-container input[type='text']:focus {
+  border: 1px solid #2e71ff;
+}
+
+.confirm-btn {
+  background-color: #2e71ff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: all 150ms;
+}
+
+.confirm-btn:hover {
+  background-color: #1a62fc;
+  cursor: pointer;
+}
+
+.id-desktop {
+  display: inline;
+}
+
+.append-text {
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
+
+@media screen and (max-width: 1160px) {
+  .id-desktop {
+    display: block;
+  }
+}

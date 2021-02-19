@@ -17,9 +17,9 @@ const Result = (props) => {
         <BarLoader css={override} size={150} color={'#0698d9'} />
       ) : (
         <div>
-          <button className="button">
-            <a href={props.resultLink}>{props.action}</a>
-          </button>
+          <a href={props.resultLink}>
+            <button className="button turn-blue">{props.text}</button>
+          </a>
         </div>
       )}
     </div>
