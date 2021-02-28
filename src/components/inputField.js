@@ -20,7 +20,6 @@ function InputField(props) {
 
   const handleConfirm = () => {
     let url = pre + props.identifier + post;
-    console.log(url);
     setLink(url);
     console.log(link);
     props.onConfirm(url);
